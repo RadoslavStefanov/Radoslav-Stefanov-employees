@@ -13,3 +13,22 @@ body {
     color: #fff;
     padding: 2rem;
 }
+
+@keyframes slide-in-right {
+0% {
+    transform: translateX(-100%);
+    opacity: 0;
+}
+100% {
+    transform: translateX(0);
+    opacity: 1;
+}
+}
+
+@mixin slide-in($duration: 0.5s, $timing: ease-out) {
+    animation: slide-in-right $duration $timing;
+}
+
+.slide-in-component {
+    @include slide-in();
+}
