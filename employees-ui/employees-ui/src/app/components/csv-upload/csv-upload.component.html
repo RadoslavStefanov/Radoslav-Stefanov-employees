@@ -1,0 +1,22 @@
+<section class="upload-section slide-in-component"
+         (dragover)="onDragOver($event)"
+         (dragleave)="onDragLeave($event)"
+         (drop)="onDrop($event)">
+  
+  <label for="csvInput">Submit a CSV to find out who deserves the spotlight!</label>
+  <label for="csvInput">Drag-Drop or Click to select a file...</label>
+  
+  
+  <input type="file"
+         id="csvInput"
+         accept=".csv"
+         (change)="onFileSelected($event)" />
+
+  
+  <div class="file-info" *ngIf="selectedFile">
+    Selected: {{ selectedFile.name }}
+  </div>
+
+</section>
+
+<button (click)="submitCsv()" type="button" class="slide-in-component">Reveal Winners</button>
