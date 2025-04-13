@@ -1,8 +1,6 @@
-﻿using EmployeesApi.Contracts.Models;
-
-namespace EmployeesApi.Models
+﻿namespace EmployeesApi.Contracts.Models
 {
-    public class EmployeeProject : IEmployeeProject
+    public interface IEmployeeProject
     {
         public int EmpId { get; set; }
         public int ProjectId { get; set; }

@@ -1,6 +1,8 @@
-﻿namespace EmployeesApi.ViewModels
+﻿using EmployeesApi.Contracts.Models;
+
+namespace EmployeesApi.ViewModels
 {
-    public class ProjectPairData
+    public class ProjectPairData : IProjectPairData
     {
         public int ProjectId { get; set; }
         public int CommonDays { get; set; }
