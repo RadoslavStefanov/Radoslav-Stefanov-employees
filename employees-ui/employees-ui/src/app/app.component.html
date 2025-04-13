@@ -5,8 +5,8 @@
 
 <div class="container">
 
-  <app-csv-upload></app-csv-upload>
-  <app-award-details *ngIf="showResultsComponent"></app-award-details>
+  <app-csv-upload (csvUploadComplete)="onCsvUploadComplete($event)"></app-csv-upload>
+  <app-award-details *ngIf="showResultsComponent" [result]="result!"></app-award-details>
 </div>
 
 

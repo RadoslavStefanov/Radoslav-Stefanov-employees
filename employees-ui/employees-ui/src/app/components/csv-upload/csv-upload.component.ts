@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { CSVUploadService } from '../../services/csvupload.service';
 import { NgIf } from '@angular/common';
+import { PairResults } from '../../core/models/PairResults.model';
 
 @Component({
   selector: 'app-csv-upload',
@@ -13,6 +14,7 @@ import { NgIf } from '@angular/common';
 export class CsvUploadComponent {
 
   uploadForm: FormGroup;
+  @Output() csvUploadComplete = new EventEmitter<PairResults>();
 
   constructor(
     private fb: FormBuilder,
@@ -45,7 +47,6 @@ export class CsvUploadComponent {
     if (files?.length) {
       const file = files[0];
       this.uploadForm.patchValue({ file });
-      console.log('Dropped file:', file.name);
     }
   }
 
@@ -55,14 +56,14 @@ export class CsvUploadComponent {
     if (files?.length) {
       const file = files[0];
       this.uploadForm.patchValue({ file });
-      console.log('Selected file:', file.name);
     }
   }
 
   submitCsv() {
     if (this.selectedFile) {
-      this.csvService.uploadCSV(this.selectedFile).then(() => {
+      this.csvService.uploadCSV(this.selectedFile).then((res) => {
         this.toastr.success('File uploaded successfully!');
+        this.csvUploadComplete.emit(res as PairResults);
       }).catch(() => {
         this.toastr.error('Error uploading file.');
       });

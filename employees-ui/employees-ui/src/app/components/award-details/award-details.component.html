@@ -1,10 +1,8 @@
-<section class="award-card">
-    <h2>🎉 Congrats to: <br> <span style="color:#fff">Employee #143 & Employee #218</span></h2>
-    <p><strong>Total Days Worked Together:</strong> 219</p>
+<section class="award-card slide-in-component" *ngIf="result">
+    <h2>🎉 Congrats to: <br> <span style="color:#fff">Employee #{{result.empId1}} & Employee #{{result.empId2}}</span></h2>
+    <p><strong>Total Days Worked Together:</strong> {{result.totalDaysWorked}}</p>
     <p><strong>On the following projects:</strong></p>
-    <ul>
-      <li>Project #12 – 35 days</li>
-      <li>Project #99 – 184 days</li>
+    <ul *ngFor="let project of result.projects">
+      <li>Project #{{project.projectId}} – {{project.commonDays}} days</li>
     </ul>
-    <p class="muted">* Data above is for preview only</p>
 </section>
