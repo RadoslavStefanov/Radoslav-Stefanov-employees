@@ -5,6 +5,6 @@ namespace EmployeesApi.Contracts.Services
 {
     public interface IPairCalculatorService
     {
-        public EmployeePairResult FindLongestWorkingPair(List<EmployeeProject> records);
+        public Task<EmployeePairResult> FindLongestWorkingPair(List<EmployeeProject> records);
     }
 }

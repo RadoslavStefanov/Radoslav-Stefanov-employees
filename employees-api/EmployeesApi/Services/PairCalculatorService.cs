@@ -1,14 +1,14 @@
 ﻿using EmployeesApi.Contracts.Services;
 using EmployeesApi.Models;
 using EmployeesApi.ViewModels;
-using System.Collections.Generic;
 
 namespace EmployeesApi.Services
 {
     public class PairCalculatorService : IPairCalculatorService
     {
-        public EmployeePairResult FindLongestWorkingPair(List<EmployeeProject> records)
+        public async Task<EmployeePairResult> FindLongestWorkingPair(List<EmployeeProject> records)
         {
+            GuardService.AgainstNullOrSingleUser(records);
 
             var projectGroups = records
                 .GroupBy(e => e.ProjectId);
@@ -46,11 +46,16 @@ namespace EmployeesApi.Services
                             }
 
                             pairWorkDict[key].TotalDaysWorked += daysWorked;
-                            pairWorkDict[key].Projects.Add(new ProjectPairData(projectGroup.Key, daysWorked));
+                            if (pairWorkDict[key].Projects.Any(x => x.ProjectId == projectGroup.Key))
+                                pairWorkDict[key].Projects.Find(x => x.ProjectId == projectGroup.Key).CommonDays += daysWorked;
+                            else
+                                pairWorkDict[key].Projects.Add(new ProjectPairData(projectGroup.Key, daysWorked));
                         }
                     }
                 }
             }
+
+            GuardService.AgainstNoPairs(pairWorkDict);
 
             return pairWorkDict.Values
                 .OrderByDescending(p => p.TotalDaysWorked)

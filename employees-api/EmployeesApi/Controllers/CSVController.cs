@@ -24,7 +24,7 @@ namespace EmployeesApi.Controllers
             try
             {
                 var usersList = _csvParserService.Parse(file);
-                return Ok(_pairService.FindLongestWorkingPair(usersList));
+                return Ok(await _pairService.FindLongestWorkingPair(usersList));
             }
             catch (Exception ex)
             {

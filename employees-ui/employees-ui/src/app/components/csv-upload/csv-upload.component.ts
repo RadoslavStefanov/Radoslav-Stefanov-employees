@@ -64,8 +64,9 @@ export class CsvUploadComponent {
       this.csvService.uploadCSV(this.selectedFile).then((res) => {
         this.toastr.success('File uploaded successfully!');
         this.csvUploadComplete.emit(res as PairResults);
-      }).catch(() => {
-        this.toastr.error('Error uploading file.');
+      }).catch((error) => {
+        console.error('Error uploading file:', error);
+        this.toastr.error(error.error || 'Error uploading file!');
       });
     } else {
       this.toastr.warning('No file selected!');
